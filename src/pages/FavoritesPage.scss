@@ -1,0 +1,26 @@
+@use '../shared/styles/variables' as *;
+@use '../shared/styles/buttons' as *;
+
+.favorites-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    margin: 4px 0 0;
+    color: var(--color-muted);
+  }
+
+  &__link {
+    @include button-primary;
+  }
+
+  &__retry {
+    @include button-danger;
+  }
+}

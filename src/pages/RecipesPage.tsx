@@ -4,6 +4,7 @@ import { PAGE_SIZE } from '../shared/config'
 import { useDocumentTitle } from '../shared/lib/useDocumentTitle'
 import Pagination from '../shared/ui/Pagination'
 import StatusMessage from '../shared/ui/StatusMessage'
+import FavoriteButton from '../features/favorites/components/FavoriteButton'
 import RecipeCard from '../features/recipes/components/RecipeCard'
 import RecipeFilters from '../features/recipes/components/RecipeFilters'
 import RecipeGrid from '../features/recipes/components/RecipeGrid'
@@ -68,7 +69,12 @@ function RecipesPage() {
             <>
                 <RecipeGrid isDimmed={recipesQuery.isPlaceholderData}>
                     {recipesQuery.data.recipes.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} onPrefetch={prefetchRecipe} />
+                        <RecipeCard
+                            key={recipe.id}
+                            recipe={recipe}
+                            onPrefetch={prefetchRecipe}
+                            actions={<FavoriteButton recipeId={recipe.id} recipeName={recipe.name} />}
+                        />
                     ))}
                 </RecipeGrid>
 

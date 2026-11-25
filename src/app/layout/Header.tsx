@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router'
+import { useFavoritesStore } from '../../features/favorites/model/favoritesStore'
 import ThemeToggle from '../../features/theme/ThemeToggle'
 import './Header.scss'
 
@@ -7,6 +8,8 @@ function getLinkClass({ isActive }: { isActive: boolean }) {
 }
 
 function Header() {
+    const favoritesCount = useFavoritesStore((state) => state.ids.length)
+
     return (
         <header className="header">
             <Link className="header__brand" to="/recipes">
@@ -19,6 +22,10 @@ function Header() {
             <nav className="header__nav" aria-label="Головна навігація">
                 <NavLink className={getLinkClass} to="/recipes" end>
                     Рецепти
+                </NavLink>
+                <NavLink className={getLinkClass} to="/favorites">
+                    Обране
+                    {favoritesCount > 0 && <span className="header__badge">{favoritesCount}</span>}
                 </NavLink>
                 <ThemeToggle />
             </nav>
