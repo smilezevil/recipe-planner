@@ -1,0 +1,5 @@
+@use '../../../shared/styles/buttons' as *;
+
+.add-to-plan-button {
+  @include button-primary;
+}

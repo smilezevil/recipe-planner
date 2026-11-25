@@ -5,6 +5,7 @@ import AppLayout from './layout/AppLayout'
 const RecipesPage = lazy(() => import('../pages/RecipesPage'))
 const RecipeDetailsPage = lazy(() => import('../pages/RecipeDetailsPage'))
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage'))
+const MealPlanPage = lazy(() => import('../pages/MealPlanPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="recipes" element={<RecipesPage />} />
                 <Route path="recipes/:recipeId" element={<RecipeDetailsPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
+                <Route path="meal-plan" element={<MealPlanPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>

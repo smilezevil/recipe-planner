@@ -1,0 +1,46 @@
+@use '../styles/variables' as *;
+
+.modal {
+  width: min(480px, calc(100vw - 24px));
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: $radius;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 24px 64px rgb(0 0 0 / 25%);
+
+  &::backdrop {
+    background-color: rgb(20 15 10 / 50%);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+    padding: 22px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $gap;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  &__close {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+}

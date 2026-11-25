@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate, useParams } from 'react-router'
 import { useAuthor } from '../features/authors/hooks/useAuthor'
 import FavoriteButton from '../features/favorites/components/FavoriteButton'
+import AddToPlanButton from '../features/meal-plan/components/AddToPlanButton'
 import { useRecipe } from '../features/recipes/hooks/useRecipe'
 import { DIFFICULTY_LABELS } from '../features/recipes/lib/labels'
 import type { Recipe } from '../features/recipes/model/types'
@@ -112,6 +113,11 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
                     )}
 
                     <div className="recipe-details__actions">
+                        <AddToPlanButton
+                            recipeId={recipe.id}
+                            recipeName={recipe.name}
+                            defaultServings={Math.min(recipe.servings, 20)}
+                        />
                         <FavoriteButton recipeId={recipe.id} recipeName={recipe.name} variant="full" />
                     </div>
                 </div>
