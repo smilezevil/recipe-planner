@@ -4,7 +4,7 @@
 Каталог рецептів із пошуком, фільтром за тегом, сортуванням і сторінками, деталі рецепта,
 обране, тижневий план харчування та власні рецепти (з фото та редагуванням).
 
-**Deployed version:** https://YOUR-PROJECT.vercel.app
+**Deployed version:** https://recipe-planner-tau-dusky.vercel.app
 
 ## Стек
 
