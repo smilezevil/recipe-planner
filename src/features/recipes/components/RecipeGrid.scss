@@ -1,0 +1,12 @@
+@use '../../../shared/styles/variables' as *;
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: $gap;
+  transition: opacity $transition;
+
+  &--dimmed {
+    opacity: 0.55;
+  }
+}

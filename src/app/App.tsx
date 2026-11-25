@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import AppLayout from './layout/AppLayout'
 
+const RecipesPage = lazy(() => import('../pages/RecipesPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <Routes>
             <Route element={<AppLayout />}>
                 <Route index element={<Navigate to="/recipes" replace />} />
+                <Route path="recipes" element={<RecipesPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>

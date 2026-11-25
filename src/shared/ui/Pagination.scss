@@ -1,0 +1,19 @@
+@use '../styles/variables' as *;
+@use '../styles/buttons' as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap;
+
+  &__button {
+    @include button-secondary;
+  }
+
+  &__info {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
