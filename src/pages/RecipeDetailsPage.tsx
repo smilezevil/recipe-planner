@@ -1,12 +1,16 @@
+import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router'
 import { useAuthor } from '../features/authors/hooks/useAuthor'
 import FavoriteButton from '../features/favorites/components/FavoriteButton'
 import AddToPlanButton from '../features/meal-plan/components/AddToPlanButton'
+import { useMealPlanStore } from '../features/meal-plan/model/mealPlanStore'
 import { useRecipe } from '../features/recipes/hooks/useRecipe'
 import { DIFFICULTY_LABELS } from '../features/recipes/lib/labels'
+import { useMyRecipesStore } from '../features/recipes/model/myRecipesStore'
 import type { Recipe } from '../features/recipes/model/types'
 import { getErrorMessage } from '../shared/api/errors'
 import { useDocumentTitle } from '../shared/lib/useDocumentTitle'
+import { useToastStore } from '../shared/model/toastStore'
 import StatusMessage from '../shared/ui/StatusMessage'
 import NotFoundPage from './NotFoundPage'
 import './RecipeDetailsPage.scss'
@@ -46,9 +50,12 @@ function AuthorInfo({ authorId }: AuthorInfoProps) {
 
 interface RecipeDetailsProps {
     recipe: Recipe
+    onDelete?: () => void
 }
 
-function RecipeDetails({ recipe }: RecipeDetailsProps) {
+function RecipeDetails({ recipe, onDelete }: RecipeDetailsProps) {
+    const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
+
     return (
         <article className="recipe-details">
             <div className="recipe-details__hero">
@@ -118,7 +125,32 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
                             recipeName={recipe.name}
                             defaultServings={Math.min(recipe.servings, 20)}
                         />
-                        <FavoriteButton recipeId={recipe.id} recipeName={recipe.name} variant="full" />
+                        {recipe.isCustom ? (
+                            isConfirmingDelete ? (
+                                <>
+                                    <button type="button" className="recipe-details__danger" onClick={onDelete}>
+                                        Так, видалити
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="recipe-details__secondary"
+                                        onClick={() => setIsConfirmingDelete(false)}
+                                    >
+                                        Ні
+                                    </button>
+                                </>
+                            ) : (
+                                <button
+                                    type="button"
+                                    className="recipe-details__danger"
+                                    onClick={() => setIsConfirmingDelete(true)}
+                                >
+                                    Видалити рецепт
+                                </button>
+                            )
+                        ) : (
+                            <FavoriteButton recipeId={recipe.id} recipeName={recipe.name} variant="full" />
+                        )}
                     </div>
                 </div>
             </div>
@@ -151,9 +183,25 @@ interface RecipeDetailsContentProps {
 }
 
 function RecipeDetailsContent({ id }: RecipeDetailsContentProps) {
-    const recipeQuery = useRecipe(id)
+    const customRecipe = useMyRecipesStore((state) => state.recipes.find((recipe) => recipe.id === id))
+    const removeRecipe = useMyRecipesStore((state) => state.removeRecipe)
+    const removeRecipeEntries = useMealPlanStore((state) => state.removeRecipeEntries)
+    const showToast = useToastStore((state) => state.showToast)
+    const navigate = useNavigate()
+    const recipeQuery = useRecipe(id, !customRecipe)
 
-    useDocumentTitle(recipeQuery.data?.name ?? 'Рецепт')
+    useDocumentTitle(customRecipe?.name ?? recipeQuery.data?.name ?? 'Рецепт')
+
+    function handleDelete() {
+        removeRecipe(id)
+        removeRecipeEntries(id)
+        showToast('Рецепт видалено', 'info')
+        navigate('/my-recipes', { replace: true })
+    }
+
+    if (customRecipe) {
+        return <RecipeDetails recipe={customRecipe} onDelete={handleDelete} />
+    }
 
     if (recipeQuery.isPending) {
         return <StatusMessage variant="loading" title="Завантаження рецепта..." />

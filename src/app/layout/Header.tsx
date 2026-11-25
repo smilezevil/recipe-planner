@@ -29,6 +29,9 @@ function Header() {
                     Обране
                     {favoritesCount > 0 && <span className="header__badge">{favoritesCount}</span>}
                 </NavLink>
+                <NavLink className={getLinkClass} to="/my-recipes">
+                    Мої рецепти
+                </NavLink>
                 <NavLink className={getLinkClass} to="/meal-plan">
                     План
                     {planCount > 0 && <span className="header__badge">{planCount}</span>}

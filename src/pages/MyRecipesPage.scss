@@ -1,0 +1,30 @@
+@use '../shared/styles/variables' as *;
+@use '../shared/styles/buttons' as *;
+
+.my-recipes-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: $gap;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    margin: 4px 0 0;
+    color: var(--color-muted);
+  }
+
+  &__add {
+    @include button-primary;
+  }
+}

@@ -1,6 +1,7 @@
 import { request, toQueryString } from '../../../shared/api/httpClient'
 import { PAGE_SIZE } from '../../../shared/config'
-import type { RecipeListParams, RecipePage, RecipeSort, Recipe } from '../model/types'
+import type { NewRecipeData } from '../model/recipeSchema'
+import type { Recipe, RecipeListParams, RecipePage, RecipeSort } from '../model/types'
 import type { ApiRecipe, ApiRecipesResponse } from './dto'
 import { toRecipe } from './mappers'
 
@@ -43,5 +44,10 @@ export const recipeRepository = {
 
     async getTags(signal?: AbortSignal): Promise<string[]> {
         return request<string[]>('/recipes/tags', { signal })
+    },
+
+    async create(data: NewRecipeData): Promise<Recipe> {
+        const created = await request<ApiRecipe>('/recipes/add', { method: 'POST', body: data })
+        return toRecipe(created)
     },
 }

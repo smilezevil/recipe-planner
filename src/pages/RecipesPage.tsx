@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router'
 import { getErrorMessage } from '../shared/api/errors'
 import { PAGE_SIZE } from '../shared/config'
 import { useDocumentTitle } from '../shared/lib/useDocumentTitle'
@@ -101,6 +102,9 @@ function RecipesPage() {
                         {tag && ` · тег «${tag}»`}
                     </p>
                 </div>
+                <Link className="recipes-page__add" to="/recipes/new">
+                    + Новий рецепт
+                </Link>
             </div>
 
             <RecipeFilters
