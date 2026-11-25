@@ -1,0 +1,23 @@
+@use '../shared/styles/buttons' as *;
+
+.edit-recipe-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 760px;
+
+  &__back {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  &__title {
+    margin: 8px 0 0;
+    font-size: 2rem;
+  }
+
+  &__link {
+    @include button-primary;
+  }
+}

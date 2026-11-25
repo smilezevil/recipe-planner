@@ -7,6 +7,7 @@ const RecipeDetailsPage = lazy(() => import('../pages/RecipeDetailsPage'))
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage'))
 const MealPlanPage = lazy(() => import('../pages/MealPlanPage'))
 const NewRecipePage = lazy(() => import('../pages/NewRecipePage'))
+const EditRecipePage = lazy(() => import('../pages/EditRecipePage'))
 const MyRecipesPage = lazy(() => import('../pages/MyRecipesPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path="recipes" element={<RecipesPage />} />
                 <Route path="recipes/new" element={<NewRecipePage />} />
                 <Route path="recipes/:recipeId" element={<RecipeDetailsPage />} />
+                <Route path="recipes/:recipeId/edit" element={<EditRecipePage />} />
                 <Route path="my-recipes" element={<MyRecipesPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
                 <Route path="meal-plan" element={<MealPlanPage />} />

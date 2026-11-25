@@ -140,13 +140,18 @@ function RecipeDetails({ recipe, onDelete }: RecipeDetailsProps) {
                                     </button>
                                 </>
                             ) : (
-                                <button
-                                    type="button"
-                                    className="recipe-details__danger"
-                                    onClick={() => setIsConfirmingDelete(true)}
-                                >
-                                    Видалити рецепт
-                                </button>
+                                <>
+                                    <Link className="recipe-details__secondary" to={`/recipes/${recipe.id}/edit`}>
+                                        Редагувати
+                                    </Link>
+                                    <button
+                                        type="button"
+                                        className="recipe-details__danger"
+                                        onClick={() => setIsConfirmingDelete(true)}
+                                    >
+                                        Видалити рецепт
+                                    </button>
+                                </>
                             )
                         ) : (
                             <FavoriteButton recipeId={recipe.id} recipeName={recipe.name} variant="full" />

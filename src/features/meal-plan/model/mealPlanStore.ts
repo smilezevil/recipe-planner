@@ -14,6 +14,7 @@ interface MealPlanState {
     updateEntry: (id: string, values: MealPlanFormData) => void
     removeEntry: (id: string) => void
     removeRecipeEntries: (recipeId: number) => void
+    renameRecipeEntries: (recipeId: number, recipeName: string) => void
     clearPlan: () => void
 }
 
@@ -45,6 +46,11 @@ export const useMealPlanStore = create<MealPlanState>()(
 
             removeRecipeEntries: (recipeId) =>
                 set((state) => ({ entries: state.entries.filter((entry) => entry.recipeId !== recipeId) })),
+
+            renameRecipeEntries: (recipeId, recipeName) =>
+                set((state) => ({
+                    entries: state.entries.map((entry) => (entry.recipeId === recipeId ? { ...entry, recipeName } : entry)),
+                })),
 
             clearPlan: () => set({ entries: [] }),
         }),
