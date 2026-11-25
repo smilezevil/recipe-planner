@@ -1,12 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { ReactNode } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { Link } from 'react-router'
 import FormField from '../../../shared/ui/FormField'
 import { DIFFICULTY_LABELS } from '../lib/labels'
 import { newRecipeSchema } from '../model/recipeSchema'
 import type { NewRecipeData, NewRecipeFormValues } from '../model/recipeSchema'
 import type { Difficulty } from '../model/types'
+import RecipeImageField from './RecipeImageField'
 import './RecipeForm.scss'
 
 const DIFFICULTIES: Difficulty[] = ['Easy', 'Medium', 'Hard']
@@ -23,6 +24,7 @@ interface RecipeFormProps {
 function RecipeForm({ defaultValues, submitLabel, cancelTo, isPending = false, onSubmit, children }: RecipeFormProps) {
     const {
         register,
+        control,
         handleSubmit,
         formState: { errors },
     } = useForm<NewRecipeFormValues, unknown, NewRecipeData>({
@@ -41,6 +43,14 @@ function RecipeForm({ defaultValues, submitLabel, cancelTo, isPending = false, o
                         <input id="recipe-cuisine" placeholder="Напр. Ukrainian" {...register('cuisine')} />
                     </FormField>
                 </div>
+
+                <Controller
+                    name="image"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                        <RecipeImageField value={field.value} onChange={field.onChange} error={fieldState.error?.message} />
+                    )}
+                />
 
                 <div className="recipe-form__row recipe-form__row--four">
                     <FormField label="Складність" htmlFor="recipe-difficulty" error={errors.difficulty?.message}>

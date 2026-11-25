@@ -48,6 +48,6 @@ export const recipeRepository = {
 
     async create(data: NewRecipeData): Promise<Recipe> {
         const created = await request<ApiRecipe>('/recipes/add', { method: 'POST', body: data })
-        return toRecipe(created)
+        return { ...toRecipe(created), image: data.image }
     },
 }

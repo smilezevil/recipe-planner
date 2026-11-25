@@ -1,0 +1,66 @@
+@use '../../../shared/styles/variables' as *;
+@use '../../../shared/styles/buttons' as *;
+
+.recipe-image-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &__input:focus-visible + &__empty,
+  &__input:focus-visible ~ &__actions &__change {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 120px;
+    border: 2px dashed var(--color-border);
+    border-radius: $radius-small;
+    background-color: var(--color-bg);
+    color: var(--color-muted);
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color $transition;
+
+    &:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+  }
+
+  &__preview {
+    width: 220px;
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: $radius-small;
+    object-fit: cover;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__change {
+    @include button-secondary;
+  }
+
+  &__remove {
+    @include button-danger;
+  }
+}

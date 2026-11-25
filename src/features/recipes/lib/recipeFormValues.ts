@@ -4,6 +4,7 @@ import type { Recipe } from '../model/types'
 export const EMPTY_RECIPE_FORM: NewRecipeFormValues = {
     name: '',
     cuisine: '',
+    image: '',
     difficulty: 'Easy',
     prepTimeMinutes: 10,
     cookTimeMinutes: 20,
@@ -18,6 +19,7 @@ export function toRecipeFormValues(recipe: Recipe): NewRecipeFormValues {
     return {
         name: recipe.name,
         cuisine: recipe.cuisine,
+        image: recipe.image,
         difficulty: recipe.difficulty,
         prepTimeMinutes: recipe.prepTimeMinutes,
         cookTimeMinutes: recipe.cookTimeMinutes,

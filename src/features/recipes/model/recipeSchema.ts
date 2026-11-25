@@ -29,6 +29,9 @@ export const newRecipeSchema = z.object({
         .min(3, 'Назва має містити щонайменше 3 символи')
         .max(80, 'Назва не може бути довшою за 80 символів'),
     cuisine: z.string().trim().min(2, 'Вкажіть кухню').max(40, 'Не більше 40 символів'),
+    image: z
+        .string()
+        .refine((value) => value === '' || value.startsWith('data:image/'), 'Некоректне зображення'),
     difficulty: z.enum(['Easy', 'Medium', 'Hard'], 'Оберіть складність'),
     prepTimeMinutes: minutesField('час підготовки'),
     cookTimeMinutes: minutesField('час приготування'),
